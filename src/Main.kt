@@ -1,3 +1,6 @@
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.pow
@@ -129,9 +132,50 @@ fun <T> element(list: List<T>, index: Int): T {
 }
 //------------------------------------------------------------------------------------------------------------------
 // 14 задание
+fun checkPassword(password: String) {
+    if (password.length < 8) {
+        throw PasswordException("Пароль не надёжный. Он должен содержать не менее 8 символов!")
+    }
+    println("Пароль надёжный)")
+}
+class PasswordException(message: String) : Exception(message)
+//------------------------------------------------------------------------------------------------------------------
+// 15 задание
+fun checkDateFormat(dateString: String) {
+    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    try {
+        LocalDate.parse(dateString, formatter)
+        println("Дата корректна: $dateString")
+    } catch (e: DateTimeParseException) {
+        throw DateTimeParseException("Некорректный формат даты. Ожидается dd.MM.yyyy", dateString, 0)
+    }
+}
+//------------------------------------------------------------------------------------------------------------------
+// 16 задание
+fun concatenateStrings(str1: String?, str2: String?): String {
+    if (str1 == null || str2 == null) {
+        throw NullPointerException("Одна из строк равна null")
+    }
+    return str1 + str2
+}
+//------------------------------------------------------------------------------------------------------------------
+// 17 задание
+fun remainder(dividend: Int, divisor: Int): Int {
+    if (divisor == 0) {
+        throw ArithmeticException("Деление на ноль недопустимо")
+    }
+    return dividend % divisor
+}
+//------------------------------------------------------------------------------------------------------------------
+// 18 задание
 
 
+//------------------------------------------------------------------------------------------------------------------
+// 19 задание
 
+
+//------------------------------------------------------------------------------------------------------------------
+// 20 задание
 
 fun main() {
     println("Задача 1: Функция для нахождения максимума")
@@ -319,10 +363,8 @@ fun main() {
     }
     //--------------------------------------------------------------------------------------------------------------
     println("\nЗадача 13: Чтение элемента списка")
-    println(
-        "Условие: Напишите функцию, которая возвращает элемент списка по индексу. Если индекс выходит " +
-                "за пределы списка, выбрасывайте IndexOutOfBoundsException."
-    )
+    println("Условие: Напишите функцию, которая возвращает элемент списка по индексу. Если индекс выходит " +
+                "за пределы списка, выбрасывайте IndexOutOfBoundsException.")
     print("Введите первое имя: ")
     val name = readln()
     print("Введите второе имя: ")
@@ -344,28 +386,53 @@ fun main() {
         "Условие: Создайте функцию для проверки сложности пароля. Если пароль содержит менее 8 символов, " +
                 "выбрасывайте исключение WeakPasswordException."
     )
-
+    println("Введите пароль: ")
+    val password = readln()
+    try {
+        checkPassword(password)
+    } catch (e: PasswordException) {
+        println(e.message)
+    }
     //--------------------------------------------------------------------------------------------------------------
     println("\nЗадача 15: Проверка даты")
     println(
         "Условие: Напишите функцию, которая проверяет, является ли строка корректной датой в формате " +
                 "dd.MM.yyyy. Если формат неверен, выбрасывайте DateTimeParseException."
     )
-
+    val date = readln()
+    try {
+        checkDateFormat(date)
+    } catch (e: DateTimeParseException) {
+        println(e.message)
+    }
     //--------------------------------------------------------------------------------------------------------------
     println("\nЗадача 16: Конкатенация строк")
     println(
         "Условие: Реализуйте функцию, которая объединяет две строки. Если одна из строк равна null, " +
                 "выбрасывайте NullPointerException."
     )
-
+    val str2 = readln()
+    val str3 = readln()
+    try {
+        val result = concatenateStrings(str2, str3)
+        println("Результат объединения: $result")
+    } catch (e: NullPointerException) {
+        println(e.message)
+    }
     //--------------------------------------------------------------------------------------------------------------
     println("\nЗадача 17: Остаток от деления")
     println(
         "Условие: Создайте функцию, которая возвращает остаток от деления двух чисел. " +
                 "Если второе число равно нулю, выбрасывайте исключение."
     )
-
+    val numb1 = readln().toInt()
+    val numb2 = readln().toInt()
+    try {
+        val result = remainder(numb1, numb2)
+        println("Остаток от деления: $result")
+    } catch (e: ArithmeticException) {
+        println(e.message)
+    }
     //--------------------------------------------------------------------------------------------------------------
     println("\nЗадача 18: Квадратный корень")
     println(
