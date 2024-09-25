@@ -459,7 +459,7 @@ fun main() {
     val str4 = readln()
     try {
         checkNotNullOrEmpty(str4)
-        println("Строка: '$str1' - допустима.")
+        println("Строка: $str4 - допустима.")
     } catch (e: IllegalArgumentException) {
         println(e.message)
     }
